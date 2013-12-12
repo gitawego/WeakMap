@@ -9,7 +9,7 @@
         module.exports = factory();
     } else {
         // Browser globals (root is window)
-        root.returnExports = factory();
+        root.WeakMap = factory();
     }
 }(this, function () {
     /**
@@ -67,5 +67,5 @@
         }
     };
 
-    return glb.WeakMap = WeakMap;
+    return WeakMap;
 }));
