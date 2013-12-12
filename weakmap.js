@@ -12,9 +12,16 @@
         root.WeakMap = factory();
     }
 }(this, function () {
+    /*
+     * Copyright 2012 The Polymer Authors. All rights reserved.
+     * Use of this source code is governed by a BSD-style
+     * license that can be found in the LICENSE file.
+     */
     /**
      * WeakMap implementation, see [WeakMap Spec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
-     *
+     * 
+     * modified by Hongbo LU
+     * 
      * notice: If key is GC-ed, value will be GC-ed as well unless there is some other references to it
      * @class WeakMap
      */
