@@ -67,5 +67,5 @@
         }
     };
 
-    return WeakMap;
+    return glb.WeakMap = WeakMap;
 }));
