@@ -50,7 +50,6 @@
     WeakMap.prototype = {
         set: function (key, value) {
             var entry = guard(key)[this.name];
-            console.log('entry',entry, key);
             if (entry && entry[0] === key) {
                 entry[1] = value;
             } else {
