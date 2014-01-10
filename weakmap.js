@@ -49,15 +49,16 @@
 
     WeakMap.prototype = {
         set: function (key, value) {
-            var entry = guard(key).valueOf[this.name];
+            var entry = guard(key)[this.name];
+            console.log('entry',entry, key);
             if (entry && entry[0] === key) {
                 entry[1] = value;
             } else {
-                defineProperty ? defineProperty(key.valueOf, this.name, {
+                defineProperty ? defineProperty(key, this.name, {
                     value: [key, value],
                     writable: true,
                     configurable:true
-                }) : (key.valueOf[this.name] = [key, value]);
+                }) : (key[this.name] = [key, value]);
             }
         },
         has: function (key) {
@@ -65,12 +66,12 @@
         },
         get: function (key, defaultValue) {
             var entry;
-            return (entry = guard(key).valueOf[this.name]) && entry[0] === key ?
+            return (entry = guard(key)[this.name]) && entry[0] === key ?
                 (entry[1] === undef ? defaultValue : entry[1]) :
                 defaultValue;
         },
         "delete": function (key) {
-            return delete guard(key).valueOf[this.name];
+            return delete guard(key)[this.name];
         }
     };
 
