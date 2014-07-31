@@ -26,12 +26,24 @@
      * @class WeakMap
      */
     var glb = typeof(window) === "undefined" ? global : window,
+        tmpEl,
         defineProperty = Object.defineProperty,
         undef = ({}).__undef,
         counter = (new Date()) % 1e9;
     if ('WeakMap' in glb) {
         return glb.WeakMap;
     }
+    if(defineProperty){
+        tmpEl = document.createElement('div');
+        try{
+            defineProperty(tmpEl,'test',{value:0});
+        }catch(e){
+            defineProperty = null;
+        }finally{
+            tmpEl = null;
+        }
+    }
+    
     function guard(key) {
         /**
          Utility function to guard WeakMap methods from keys that are not
