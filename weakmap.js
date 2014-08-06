@@ -25,7 +25,9 @@
      * notice: If key is GC-ed, value will be GC-ed as well unless there is some other references to it
      * @class WeakMap
      */
-    var glb = typeof(window) === "undefined" ? global : window,
+    var isWin = typeof(window) !== 'undefined',
+        glb = !isWin ? global : window,
+        noDefOnDOM = false,
         tmpEl,
         defineProperty = Object.defineProperty,
         undef = ({}).__undef,
@@ -33,12 +35,12 @@
     if ('WeakMap' in glb) {
         return glb.WeakMap;
     }
-    if(defineProperty){
+    if(defineProperty && isWin ){
         tmpEl = document.createElement('div');
         try{
             defineProperty(tmpEl,'test',{value:0});
         }catch(e){
-            defineProperty = null;
+            noDefOnDOM = true;
         }finally{
             tmpEl = null;
         }
@@ -65,7 +67,7 @@
             if (entry && entry[0] === key) {
                 entry[1] = value;
             } else {
-                defineProperty ? defineProperty(key, this.name, {
+                (defineProperty && !noDefOnDOM) ? defineProperty(key, this.name, {
                     value: [key, value],
                     writable: true,
                     configurable:true
